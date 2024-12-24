@@ -202,6 +202,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AuthenticationModels.cs" />
+    <Compile Include="Models\Classes\Crypto.cs" />
+    <Compile Include="Models\Classes\EmailSender.cs" />
     <Compile Include="Models\Classes\Globals.cs" />
     <Compile Include="Models\Connections\SqlProcess.cs" />
     <Compile Include="Models\ValidateTokenHandler.cs" />
