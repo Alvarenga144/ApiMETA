@@ -9,7 +9,7 @@ namespace ApiMETA.Models
 {
     public class TransactionsModels : IDisposable
     {
-        #region Transacciones normales 
+        #region Transactions
 
         public List<TipoTransaccion> SelectTipoTransaccion(string Usuario)
         {

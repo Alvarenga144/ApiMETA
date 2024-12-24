@@ -18,7 +18,7 @@ namespace ApiMETA.Models.Classes
         public static long IdSistema = long.Parse(ConfigurationManager.AppSettings["IdSystem"]);
         public static string phrase = ConfigurationManager.AppSettings["PhraseMail"];
         public static string NombreSistema = ConfigurationManager.AppSettings["NameSystem"];
-        public static int UsuarioMoa = int.Parse(ConfigurationManager.AppSettings["Usuario"]);
+        public static int Usuario = int.Parse(ConfigurationManager.AppSettings["Usuario"]);
         public static string PathLog = ConfigurationManager.AppSettings["PathLog"];
         public static string strPDFFileName = "Voucher";
         public static string PDFPath = "E:\\Vouchers";

@@ -36,7 +36,7 @@ namespace ApiMETA.Models.Classes
                 // Establece el asunto del correo.
                 message.Subject = asunto;
                 // Establece la dirección y nombre del remitente del correo.
-                message.From = new MailAddress(Mail, "MOA - Serfinsa", Encoding.UTF8);
+                message.From = new MailAddress(Mail, "Esteban Alvarenga - @Alvarenga144", Encoding.UTF8);
                 // Configura la codificación del asunto del correo.
                 message.SubjectEncoding = Encoding.UTF8;
                 // Indica que el cuerpo del correo está en formato HTML.
@@ -98,7 +98,7 @@ namespace ApiMETA.Models.Classes
                 MailMessage message = new MailMessage();
                 message.To.Add(dtRemitente);
                 message.Subject = asunto;
-                message.From = new MailAddress(Mail, "MOA - Serfinsa", Encoding.UTF8);
+                message.From = new MailAddress(Mail, "Esteban Alvarenga - @Alvarenga144", Encoding.UTF8);
                 message.SubjectEncoding = Encoding.UTF8;
                 message.IsBodyHtml = true;
                 message.BodyEncoding = Encoding.UTF8;
