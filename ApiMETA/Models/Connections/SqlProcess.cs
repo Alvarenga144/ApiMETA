@@ -198,6 +198,130 @@ namespace ApiMETA.Models.Connections
 
         #endregion
 
+        #region Commerces
+
+        public DataTable SelectCommerces(int IdUsuario, string User, long IdSistema)
+        {
+            DataTable dt = new DataTable();
+            DataSet ds = new DataSet();
+            try
+            {
+                using (SqlDataAdapter da = new SqlDataAdapter("META.Sp_Comercios_Select", _ExSQLConnection))
+                {
+                    da.SelectCommand.CommandType = CommandType.StoredProcedure;
+                    da.SelectCommand.Parameters.AddWithValue("@IdUSuario", IdUsuario).SqlDbType = SqlDbType.Int;
+                    da.SelectCommand.CommandTimeout = 5000;
+                    da.Fill(ds, "Datos");
+                    dt = ds.Tables["Datos"];
+                }
+            }
+            catch (Exception e)
+            {
+                SaveExceptions(System.Reflection.MethodBase.GetCurrentMethod().Name, e.Message, User, IdSistema);
+            }
+            return dt;
+        }
+
+        public DataTable CommerceSearch(int IdUsuario, string Descripcion, string User, long IdSistema)
+        {
+            DataTable dt = new DataTable();
+            DataSet ds = new DataSet();
+            try
+            {
+                using (SqlDataAdapter da = new SqlDataAdapter("META.Sp_Comercios_Search", _ExSQLConnection))
+                {
+                    da.SelectCommand.CommandType = CommandType.StoredProcedure;
+                    da.SelectCommand.Parameters.AddWithValue("@IdUSuario", IdUsuario).SqlDbType = SqlDbType.Int;
+                    da.SelectCommand.Parameters.AddWithValue("@Descripcion", Descripcion).SqlDbType = SqlDbType.VarChar;
+                    da.SelectCommand.CommandTimeout = 5000;
+                    da.Fill(ds, "Datos");
+                    dt = ds.Tables["Datos"];
+                }
+            }
+            catch (Exception e)
+            {
+                SaveExceptions(System.Reflection.MethodBase.GetCurrentMethod().Name, e.Message, User, IdSistema);
+            }
+            return dt;
+        }
+
+        public DataTable GetCommerces(int IdUsuario, long Id, string User, long IdSistema)
+        {
+            DataTable dt = new DataTable();
+            DataSet ds = new DataSet();
+            try
+            {
+                using (SqlDataAdapter da = new SqlDataAdapter("META.Sp_Comercios_Get", _ExSQLConnection))
+                {
+                    da.SelectCommand.CommandType = CommandType.StoredProcedure;
+                    da.SelectCommand.Parameters.AddWithValue("@Id", Id).SqlDbType = SqlDbType.BigInt;
+                    da.SelectCommand.Parameters.AddWithValue("@IdUSuario", IdUsuario).SqlDbType = SqlDbType.Int;
+                    da.SelectCommand.CommandTimeout = 5000;
+                    da.Fill(ds, "Datos");
+                    dt = ds.Tables["Datos"];
+                }
+            }
+            catch (Exception e)
+            {
+                SaveExceptions(System.Reflection.MethodBase.GetCurrentMethod().Name, e.Message, User, IdSistema);
+            }
+            return dt;
+        }
+
+        #endregion
+
+        #region Asignations
+
+        // 1-ASIGNAR O 2-REMOVER
+        public DataTable AdminUsuarioComercio(int Tipo, int IdUSuario, long IdSucursal, string User, long IdSistema)
+        {
+            DataTable dt = new DataTable();
+            DataSet ds = new DataSet();
+            try
+            {
+                using (SqlDataAdapter da = new SqlDataAdapter("META.Sp_Usuarios_Comercios_Admin", _ExSQLConnection))
+                {
+                    da.SelectCommand.CommandType = CommandType.StoredProcedure;
+                    da.SelectCommand.CommandTimeout = 5000;
+                    da.SelectCommand.Parameters.AddWithValue("@Tipo", Tipo).SqlDbType = SqlDbType.Int;
+                    da.SelectCommand.Parameters.AddWithValue("@IdUSuario", IdUSuario).SqlDbType = SqlDbType.Int;
+                    da.SelectCommand.Parameters.AddWithValue("@Idcomercio", IdSucursal).SqlDbType = SqlDbType.BigInt;
+                    da.SelectCommand.Parameters.AddWithValue("@User", User).SqlDbType = SqlDbType.VarChar;
+                    da.Fill(ds, "Datos");
+                    dt = ds.Tables["Datos"];
+                }
+            }
+            catch (Exception e)
+            {
+                SaveExceptions(System.Reflection.MethodBase.GetCurrentMethod().Name, e.Message, User, IdSistema);
+            }
+            return dt;
+        }
+
+        public DataTable GetUsuarioComercio(int IdUsuario, string User, long IdSistema)
+        {
+            DataTable dt = new DataTable();
+            DataSet ds = new DataSet();
+            try
+            {
+                using (SqlDataAdapter da = new SqlDataAdapter("META.Sp_Usuarios_Comercios_Get", _ExSQLConnection))
+                {
+                    da.SelectCommand.CommandType = CommandType.StoredProcedure;
+                    da.SelectCommand.CommandTimeout = 5000;
+                    da.SelectCommand.Parameters.AddWithValue("@IdUSuario", IdUsuario).SqlDbType = SqlDbType.Int;
+                    da.Fill(ds, "Datos");
+                    dt = ds.Tables["Datos"];
+                }
+            }
+            catch (Exception e)
+            {
+                SaveExceptions(System.Reflection.MethodBase.GetCurrentMethod().Name, e.Message, User, IdSistema);
+            }
+            return dt;
+        }
+
+        #endregion
+
         #region JWT
 
         public DataTable ValidateAutentication(string Usuario, string Clave, long IdSistema)

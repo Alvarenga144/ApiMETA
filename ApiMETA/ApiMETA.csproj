@@ -197,6 +197,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
+    <Compile Include="Controllers\CommercesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MonitorController.cs" />
     <Compile Include="Controllers\StatisticsController.cs" />
@@ -207,6 +208,7 @@
     <Compile Include="Models\Classes\Crypto.cs" />
     <Compile Include="Models\Classes\EmailSender.cs" />
     <Compile Include="Models\Classes\Globals.cs" />
+    <Compile Include="Models\CommercesModels.cs" />
     <Compile Include="Models\Connections\SqlProcess.cs" />
     <Compile Include="Models\MonitorModels.cs" />
     <Compile Include="Models\StatisticsModels.cs" />
