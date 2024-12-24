@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ApiMETA.Models.Classes;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Net;
@@ -53,7 +54,7 @@ namespace ApiMETA.Models.Connections
             }
             catch (Exception e)
             {
-                //SaveExceptions(System.Reflection.MethodBase.GetCurrentMethod().Name, e.Message, Usuario, Globales.IdSistema);
+                SaveExceptions(System.Reflection.MethodBase.GetCurrentMethod().Name, e.Message, Usuario, Globals.IdSistema);
             }
             return dt;
         }
