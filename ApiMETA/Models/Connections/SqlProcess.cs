@@ -34,6 +34,170 @@ namespace ApiMETA.Models.Connections
 
         #endregion
 
+        #region Monitor
+
+        public DataTable SelectMonitorTransactions(int Id, string User, long IdSistema)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                DataSet ds = new DataSet();
+                using (SqlDataAdapter da = new SqlDataAdapter("META.Sp_Monitor_Transacciones_Select", _ExSQLConnection))
+                {
+                    da.SelectCommand.CommandType = CommandType.StoredProcedure;
+                    da.SelectCommand.CommandTimeout = 5000;
+                    da.SelectCommand.Parameters.AddWithValue("@IdUsuario", Id).SqlDbType = SqlDbType.Int;
+                    da.Fill(ds, "Datos");
+                    dt = ds.Tables["Datos"];
+                }
+            }
+            catch (Exception e)
+            {
+                SaveExceptions(System.Reflection.MethodBase.GetCurrentMethod().Name, e.Message, User, IdSistema);
+            }
+            return dt;
+        }
+
+        public DataTable SelectMonitorPurchaseType(int Id, string User, long IdSistema)
+        {
+            DataTable dt = new DataTable();
+            DataSet ds = new DataSet();
+            try
+            {
+                using (SqlDataAdapter da = new SqlDataAdapter("META.Sp_Monitor_Tipo_Compra_Select", _ExSQLConnection))
+                {
+                    da.SelectCommand.CommandType = CommandType.StoredProcedure;
+                    da.SelectCommand.CommandTimeout = 5000;
+                    da.SelectCommand.Parameters.AddWithValue("@IdUsuario", Id).SqlDbType = SqlDbType.Int;
+                    da.Fill(ds, "Datos");
+                    dt = ds.Tables["Datos"];
+                }
+            }
+            catch (Exception e)
+            {
+                SaveExceptions(System.Reflection.MethodBase.GetCurrentMethod().Name, e.Message, User, IdSistema);
+            }
+            return dt;
+        }
+
+        public DataTable SelectMonitorApproved(int Id, string User, long IdSistema)
+        {
+            DataTable dt = new DataTable();
+            DataSet ds = new DataSet();
+            try
+            {
+                using (SqlDataAdapter da = new SqlDataAdapter("META.Sp_Monitor_Aprobacion_Select", _ExSQLConnection))
+                {
+                    da.SelectCommand.CommandType = CommandType.StoredProcedure;
+                    da.SelectCommand.CommandTimeout = 5000;
+                    da.SelectCommand.Parameters.AddWithValue("@IdUsuario", Id).SqlDbType = SqlDbType.Int;
+                    da.Fill(ds, "Datos");
+                    dt = ds.Tables["Datos"];
+                }
+            }
+            catch (Exception e)
+            {
+                SaveExceptions(System.Reflection.MethodBase.GetCurrentMethod().Name, e.Message, User, IdSistema);
+            }
+            return dt;
+        }
+
+        #endregion
+
+        #region Statistics
+
+        public DataTable SelectStatisticsPurchaseType(int Id, string User, long IdSistema)
+        {
+            DataTable dt = new DataTable();
+            DataSet ds = new DataSet();
+            try
+            {
+                using (SqlDataAdapter da = new SqlDataAdapter("META.Sp_Estadisticas_Tipo_Compra_Select", _ExSQLConnection))
+                {
+                    da.SelectCommand.CommandType = CommandType.StoredProcedure;
+                    da.SelectCommand.CommandTimeout = 5000;
+                    da.SelectCommand.Parameters.AddWithValue("@IdUsuario", Id).SqlDbType = SqlDbType.Int;
+                    da.Fill(ds, "Datos");
+
+                    dt = ds.Tables["Datos"];
+                }
+            }
+            catch (Exception e)
+            {
+                SaveExceptions(System.Reflection.MethodBase.GetCurrentMethod().Name, e.Message, User, IdSistema);
+            }
+            return dt;
+        }
+
+        public DataTable SelectStatisticsCommerce(int Id, string User, long IdSistema)
+        {
+            DataTable dt = new DataTable();
+            DataSet ds = new DataSet();
+            try
+            {
+                using (SqlDataAdapter da = new SqlDataAdapter("META.Sp_Estadisticas_Por_Sucursal_Select", _ExSQLConnection))
+                {
+                    da.SelectCommand.CommandType = CommandType.StoredProcedure;
+                    da.SelectCommand.CommandTimeout = 5000;
+                    da.SelectCommand.Parameters.AddWithValue("@IdUsuario", Id).SqlDbType = SqlDbType.Int;
+                    da.Fill(ds, "Datos");
+                    dt = ds.Tables["Datos"];
+                }
+            }
+            catch (Exception e)
+            {
+                SaveExceptions(System.Reflection.MethodBase.GetCurrentMethod().Name, e.Message, User, IdSistema);
+            }
+            return dt;
+        }
+
+        public DataTable SelectStatisticsAcquirer(int Id, string User, long IdSistema)
+        {
+            DataTable dt = new DataTable();
+            DataSet ds = new DataSet();
+            try
+            {
+                using (SqlDataAdapter da = new SqlDataAdapter("META.Sp_Estadisticas_Por_Adquirente_Select", _ExSQLConnection))
+                {
+                    da.SelectCommand.CommandType = CommandType.StoredProcedure;
+                    da.SelectCommand.CommandTimeout = 5000;
+                    da.SelectCommand.Parameters.AddWithValue("@IdUsuario", Id).SqlDbType = SqlDbType.Int;
+                    da.Fill(ds, "Datos");
+                    dt = ds.Tables["Datos"];
+                }
+            }
+            catch (Exception e)
+            {
+                SaveExceptions(System.Reflection.MethodBase.GetCurrentMethod().Name, e.Message, User, IdSistema);
+            }
+            return dt;
+        }
+
+        public DataTable SelectStatisticsTerminal(int Id, string Retailer, string User, long IdSistema)
+        {
+            DataTable dt = new DataTable();
+            DataSet ds = new DataSet();
+            try
+            {
+                using (SqlDataAdapter da = new SqlDataAdapter("META.Sp_Estadisticas_Por_Terminal_Select", _ExSQLConnection))
+                {
+                    da.SelectCommand.CommandType = CommandType.StoredProcedure;
+                    da.SelectCommand.CommandTimeout = 5000;
+                    da.SelectCommand.Parameters.AddWithValue("@IdUsuario", Id).SqlDbType = SqlDbType.Int;
+                    da.SelectCommand.Parameters.AddWithValue("@Retailer", Retailer).SqlDbType = SqlDbType.VarChar;
+                    da.Fill(ds, "Datos");
+                    dt = ds.Tables["Datos"];
+                }
+            }
+            catch (Exception e)
+            {
+                SaveExceptions(System.Reflection.MethodBase.GetCurrentMethod().Name, e.Message, User, IdSistema);
+            }
+            return dt;
+        }
+
+        #endregion
+
         #region JWT
 
         public DataTable ValidateAutentication(string Usuario, string Clave, long IdSistema)
