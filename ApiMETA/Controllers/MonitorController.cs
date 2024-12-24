@@ -11,7 +11,7 @@ namespace ApiMETA.Controllers
     public class MonitorController : ApiController
     {
         [Authorize]
-        [Route("Select")]
+        [Route("Transactions")]
         [HttpPost]
         public List<MonitorTransactions> monitorTransaccionesSelect(MonitorRequest monitorRequest)
         {

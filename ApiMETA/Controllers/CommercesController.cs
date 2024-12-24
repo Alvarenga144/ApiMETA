@@ -11,7 +11,7 @@ namespace ApiMETA.Controllers
     public class CommercesController : ApiController
     {
         [Authorize]
-        [Route("CommercesList")]
+        [Route("List")]
         [HttpPost]
         public List<ComerciosInfo> ListComercios(ComerciosListRequest comerciosList)
         {
@@ -26,7 +26,7 @@ namespace ApiMETA.Controllers
         }
 
         [Authorize]
-        [Route("ComerciosBusqueda")]
+        [Route("Search")]
         [HttpPost]
         public List<ComerciosInfo> SelectList(ComerciosRequest comerciosRequest)
         {
@@ -41,7 +41,7 @@ namespace ApiMETA.Controllers
         }
 
         [Authorize]
-        [Route("GetOneComercio")]
+        [Route("Get")]
         [HttpPost]
         public ComerciosInfo GetComercios(ComercioRequestRId comercioRequestRId)
         {
@@ -56,7 +56,7 @@ namespace ApiMETA.Controllers
         }
 
         [Authorize]
-        [Route("SelectAsignados")]
+        [Route("Assigned")]
         [HttpPost]
         public List<ComerciosInfo> SelectAsignados(ComerciosListRequest comercioRequestRId)
         {

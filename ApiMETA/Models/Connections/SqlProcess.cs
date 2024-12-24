@@ -104,6 +104,131 @@ namespace ApiMETA.Models.Connections
 
         #endregion
 
+        #region Transactions
+
+        public DataTable SelectTransaciones(DateTime Desde, DateTime Hasta, string Retailer, string Nombre, string Terminal, string Autorizacion, string Tipo, double Monto, int IdUSuario, string User, long IdSistema)
+        {
+            DataTable dt = new DataTable();
+            DataSet ds = new DataSet();
+            try
+            {
+                using (SqlDataAdapter da = new SqlDataAdapter("MOA.Sp_Transacciones_Select", _ExSQLConnection))
+                {
+                    da.SelectCommand.CommandType = CommandType.StoredProcedure;
+                    da.SelectCommand.CommandTimeout = 5000;
+                    da.SelectCommand.Parameters.AddWithValue("@Desde", Desde).SqlDbType = SqlDbType.Date;
+                    da.SelectCommand.Parameters.AddWithValue("@Hasta", Hasta).SqlDbType = SqlDbType.Date;
+                    da.SelectCommand.Parameters.AddWithValue("@Retailer", Retailer).SqlDbType = SqlDbType.VarChar;
+                    da.SelectCommand.Parameters.AddWithValue("@Nombre", Nombre).SqlDbType = SqlDbType.VarChar;
+                    da.SelectCommand.Parameters.AddWithValue("@Terminal", Terminal).SqlDbType = SqlDbType.VarChar;
+                    da.SelectCommand.Parameters.AddWithValue("@Autorizacion", Autorizacion).SqlDbType = SqlDbType.VarChar;
+                    da.SelectCommand.Parameters.AddWithValue("@Tipo", Tipo).SqlDbType = SqlDbType.VarChar;
+                    da.SelectCommand.Parameters.AddWithValue("@Monto", Monto).SqlDbType = SqlDbType.Decimal;
+                    da.SelectCommand.Parameters.AddWithValue("@IdUSuario", IdUSuario).SqlDbType = SqlDbType.Int;
+                    da.Fill(ds, "Datos");
+                    dt = ds.Tables["Datos"];
+                }
+            }
+            catch (Exception e)
+            {
+                SaveExceptions(System.Reflection.MethodBase.GetCurrentMethod().Name, e.Message, User, IdSistema);
+            }
+            return dt;
+        }
+
+        public DataTable GetTransaciones(long Id, string User, long IdSistema)
+        {
+            DataTable dt = new DataTable();
+            DataSet ds = new DataSet();
+            try
+            {
+                using (SqlDataAdapter da = new SqlDataAdapter("META.Sp_Transacciones_Get", _ExSQLConnection))
+                {
+                    da.SelectCommand.CommandType = CommandType.StoredProcedure;
+                    da.SelectCommand.CommandTimeout = 5000;
+                    da.SelectCommand.Parameters.AddWithValue("@Id", Id).SqlDbType = SqlDbType.BigInt;
+                    da.Fill(ds, "Datos");
+                    dt = ds.Tables["Datos"];
+                }
+            }
+            catch (Exception e)
+            {
+                SaveExceptions(System.Reflection.MethodBase.GetCurrentMethod().Name, e.Message, User, IdSistema);
+            }
+            return dt;
+        }
+
+        public DataSet InsertTransacionHistorial(long IdTxn, DateTime FechaOrig, string HoraOrig, string TerminalId, string RetailerId,
+            string Nombre, string PrimaryIin, string PrimaryPanTail, double MontoOrig, double MontoAdicionalOrig, string AutorizacionOrig,
+            string ReferenciaOrig, string ReciboOrig, string DataAdicional, string ProcessingCode, string Mti, string Autorizacion,
+            string Recibo, double Monto, double MontoAdicional, string Referencia, string Fecha, string Hora, int Tipo, int IdUsuario, string User, long IdSistema)
+        {
+            DataSet ds = new DataSet();
+            try
+            {
+                using (SqlDataAdapter da = new SqlDataAdapter("META.Sp_Transacciones_Insert", _ExSQLConnection))
+                {
+                    da.SelectCommand.CommandType = CommandType.StoredProcedure;
+                    da.SelectCommand.CommandTimeout = 5000;
+                    da.SelectCommand.Parameters.AddWithValue("@IdTxn", IdTxn).SqlDbType = SqlDbType.BigInt;
+                    da.SelectCommand.Parameters.AddWithValue("@FechaOrig", FechaOrig).SqlDbType = SqlDbType.Date;
+                    da.SelectCommand.Parameters.AddWithValue("@HoraOrig", HoraOrig).SqlDbType = SqlDbType.VarChar;
+                    da.SelectCommand.Parameters.AddWithValue("@TerminalId", TerminalId).SqlDbType = SqlDbType.VarChar;
+                    da.SelectCommand.Parameters.AddWithValue("@RetailerId", RetailerId).SqlDbType = SqlDbType.VarChar;
+                    da.SelectCommand.Parameters.AddWithValue("@Nombre", Nombre).SqlDbType = SqlDbType.VarChar;
+                    da.SelectCommand.Parameters.AddWithValue("@PrimaryIin", PrimaryIin).SqlDbType = SqlDbType.VarChar;
+                    da.SelectCommand.Parameters.AddWithValue("@PrimaryPanTail", PrimaryPanTail).SqlDbType = SqlDbType.VarChar;
+                    da.SelectCommand.Parameters.AddWithValue("@MontoOrig", MontoOrig).SqlDbType = SqlDbType.Money;
+                    da.SelectCommand.Parameters.AddWithValue("@MontoAdicionalOrig", MontoAdicionalOrig).SqlDbType = SqlDbType.Money;
+                    da.SelectCommand.Parameters.AddWithValue("@AutorizacionOrig", AutorizacionOrig).SqlDbType = SqlDbType.VarChar;
+                    da.SelectCommand.Parameters.AddWithValue("@ReferenciaOrig", ReferenciaOrig).SqlDbType = SqlDbType.VarChar;
+                    da.SelectCommand.Parameters.AddWithValue("@ReciboOrig", ReciboOrig).SqlDbType = SqlDbType.VarChar;
+                    da.SelectCommand.Parameters.AddWithValue("@DataAdicional", DataAdicional).SqlDbType = SqlDbType.VarChar;
+                    da.SelectCommand.Parameters.AddWithValue("@ProcessingCode", ProcessingCode).SqlDbType = SqlDbType.VarChar;
+                    da.SelectCommand.Parameters.AddWithValue("@Mti", Mti).SqlDbType = SqlDbType.VarChar;
+                    da.SelectCommand.Parameters.AddWithValue("@Autorizacion", Autorizacion).SqlDbType = SqlDbType.VarChar;
+                    da.SelectCommand.Parameters.AddWithValue("@Recibo", Recibo).SqlDbType = SqlDbType.VarChar;
+                    da.SelectCommand.Parameters.AddWithValue("@Monto", Monto).SqlDbType = SqlDbType.Money;
+                    da.SelectCommand.Parameters.AddWithValue("@MontoAdicional", MontoAdicional).SqlDbType = SqlDbType.Money;
+                    da.SelectCommand.Parameters.AddWithValue("@Referencia", Referencia).SqlDbType = SqlDbType.VarChar;
+                    da.SelectCommand.Parameters.AddWithValue("@Fecha", Fecha).SqlDbType = SqlDbType.VarChar;
+                    da.SelectCommand.Parameters.AddWithValue("@Hora", Hora).SqlDbType = SqlDbType.VarChar;
+                    da.SelectCommand.Parameters.AddWithValue("@Tipo", Tipo).SqlDbType = SqlDbType.Int;
+                    da.SelectCommand.Parameters.AddWithValue("@User", User).SqlDbType = SqlDbType.VarChar;
+                    da.SelectCommand.Parameters.AddWithValue("@IdUsuario", IdUsuario).SqlDbType = SqlDbType.Int;
+                    da.Fill(ds, "Datos");
+                }
+            }
+            catch (Exception e)
+            {
+                SaveExceptions(System.Reflection.MethodBase.GetCurrentMethod().Name, e.Message, User, IdSistema);
+            }
+            return ds;
+        }
+
+        public DataTable SelectTipoTransaciones(string User, long IdSistema)
+        {
+            DataTable dt = new DataTable();
+            DataSet ds = new DataSet();
+            try
+            {
+                using (SqlDataAdapter da = new SqlDataAdapter("META.Sp_Tipo_Transacciones_Select", _ExSQLConnection))
+                {
+                    da.SelectCommand.CommandType = CommandType.StoredProcedure;
+                    da.SelectCommand.CommandTimeout = 5000;
+                    da.Fill(ds, "Datos");
+                    dt = ds.Tables["Datos"];
+                }
+            }
+            catch (Exception e)
+            {
+                SaveExceptions(System.Reflection.MethodBase.GetCurrentMethod().Name, e.Message, User, IdSistema);
+            }
+            return dt;
+        }
+
+        #endregion
+
         #region Statistics
 
         public DataTable SelectStatisticsPurchaseType(int Id, string User, long IdSistema)
