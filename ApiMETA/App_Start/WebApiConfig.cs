@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using ApiMETA.Models;
+using System.Globalization;
+using System.Net.Http.Headers;
 using System.Web.Http;
 
 namespace ApiMETA
@@ -19,6 +19,13 @@ namespace ApiMETA
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/json"));
+
+            //Token validation
+            config.MessageHandlers.Add(new ValidateTokenHandler());
+
+            System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-US");
         }
     }
 }
