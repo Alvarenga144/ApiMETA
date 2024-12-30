@@ -112,7 +112,7 @@ namespace ApiMETA.Models.Connections
             DataSet ds = new DataSet();
             try
             {
-                using (SqlDataAdapter da = new SqlDataAdapter("MOA.Sp_Transacciones_Select", _ExSQLConnection))
+                using (SqlDataAdapter da = new SqlDataAdapter("META.Sp_Transacciones_Select", _ExSQLConnection))
                 {
                     da.SelectCommand.CommandType = CommandType.StoredProcedure;
                     da.SelectCommand.CommandTimeout = 5000;
@@ -395,9 +395,244 @@ namespace ApiMETA.Models.Connections
 
         #endregion
 
+        #region Users and role's users
+
+        public DataTable SelectUsuarios(string User, long IdSistema)
+        {
+            DataTable dt = new DataTable();
+            DataSet ds = new DataSet();
+            try
+            {
+                using (SqlDataAdapter da = new SqlDataAdapter("META.Sp_Usuarios_Select", _ExSQLConnection))
+                {
+                    da.SelectCommand.CommandType = CommandType.StoredProcedure;
+                    da.SelectCommand.CommandTimeout = 5000;
+                    da.Fill(ds, "Datos");
+                    dt = ds.Tables["Datos"];
+                }
+            }
+            catch (Exception e)
+            {
+                SaveExceptions(System.Reflection.MethodBase.GetCurrentMethod().Name, e.Message, User, IdSistema);
+            }
+            return dt;
+        }
+
+        public DataTable LikeUsuarios(string Descripcion, string User, long IdSistema)
+        {
+            DataTable dt = new DataTable();
+            DataSet ds = new DataSet();
+            try
+            {
+                using (SqlDataAdapter da = new SqlDataAdapter("META.Sp_Usuarios_Like", _ExSQLConnection))
+                {
+                    da.SelectCommand.CommandType = CommandType.StoredProcedure;
+                    da.SelectCommand.Parameters.AddWithValue("@Descripcion", Descripcion).SqlDbType = SqlDbType.VarChar;
+                    da.SelectCommand.CommandTimeout = 5000;
+                    da.Fill(ds, "Datos");
+                    dt = ds.Tables["Datos"];
+                }
+            }
+            catch (Exception e)
+            {
+                SaveExceptions(System.Reflection.MethodBase.GetCurrentMethod().Name, e.Message, User, IdSistema);
+            }
+            return dt;
+        }
+
+        public DataTable GetUsuarioSelected(int Id, string User, long IdSistema)
+        {
+            DataTable dt = new DataTable();
+            DataSet ds = new DataSet();
+            try
+            {
+                using (SqlDataAdapter da = new SqlDataAdapter("META.Sp_Usuarios_Get", _ExSQLConnection))
+                {
+                    da.SelectCommand.CommandType = CommandType.StoredProcedure;
+                    da.SelectCommand.CommandTimeout = 5000;
+                    da.SelectCommand.Parameters.AddWithValue("@Id", Id).SqlDbType = SqlDbType.Int;
+                    da.Fill(ds, "Datos");
+                    dt = ds.Tables["Datos"];
+                }
+            }
+            catch (Exception e)
+            {
+                SaveExceptions(System.Reflection.MethodBase.GetCurrentMethod().Name, e.Message, User, IdSistema);
+            }
+            return dt;
+        }
+
+        public DataTable AdminUsuarios(int Tipo, int Id, string Nombre, string Apellido, string Usuario, string Clave, string Email, string User, long IdSistema)
+        {
+            DataTable dt = new DataTable();
+            DataSet ds = new DataSet();
+            try
+            {
+                using (SqlDataAdapter da = new SqlDataAdapter("META.Sp_Usuarios_Admin", _ExSQLConnection))
+                {
+                    da.SelectCommand.CommandType = CommandType.StoredProcedure;
+                    da.SelectCommand.CommandTimeout = 5000;
+                    da.SelectCommand.Parameters.AddWithValue("@Tipo", Tipo).SqlDbType = SqlDbType.Int;
+                    da.SelectCommand.Parameters.AddWithValue("@Id", Id).SqlDbType = SqlDbType.Int;
+                    da.SelectCommand.Parameters.AddWithValue("@Nombre", Nombre).SqlDbType = SqlDbType.VarChar;
+                    da.SelectCommand.Parameters.AddWithValue("@Apellido", Apellido).SqlDbType = SqlDbType.VarChar;
+                    da.SelectCommand.Parameters.AddWithValue("@Usuario", Usuario).SqlDbType = SqlDbType.VarChar;
+                    da.SelectCommand.Parameters.AddWithValue("@Clave", Clave).SqlDbType = SqlDbType.VarChar;
+                    da.SelectCommand.Parameters.AddWithValue("@Email", Email).SqlDbType = SqlDbType.VarChar;
+                    da.SelectCommand.Parameters.AddWithValue("@User", User).SqlDbType = SqlDbType.VarChar;
+                    da.Fill(ds, "Datos");
+                    dt = ds.Tables["Datos"];
+                }
+            }
+            catch (Exception e)
+            {
+                SaveExceptions(System.Reflection.MethodBase.GetCurrentMethod().Name, e.Message, User, IdSistema);
+            }
+            return dt;
+        }
+
+        public DataTable ValidarUsuarios(string Usuario, string Clave, long IdSistema)
+        {
+            DataTable dt = new DataTable();
+            DataSet ds = new DataSet();
+            try
+            {
+                using (SqlDataAdapter da = new SqlDataAdapter("META.Sp_Usuarios_Validate", _ExSQLConnection))
+                {
+                    da.SelectCommand.CommandType = CommandType.StoredProcedure;
+                    da.SelectCommand.CommandTimeout = 5000;
+                    da.SelectCommand.Parameters.AddWithValue("@Usuario", Usuario).SqlDbType = SqlDbType.VarChar;
+                    da.SelectCommand.Parameters.AddWithValue("@Clave", Clave).SqlDbType = SqlDbType.VarChar;
+                    da.Fill(ds, "Datos");
+                    dt = ds.Tables["Datos"];
+                }
+            }
+            catch (Exception e)
+            {
+                SaveExceptions(System.Reflection.MethodBase.GetCurrentMethod().Name, e.Message, Usuario, IdSistema);
+            }
+            return dt;
+        }
+
+        public DataTable FindUsuarios(string Usuario, long IdSistema)
+        {
+            DataTable dt = new DataTable();
+            DataSet ds = new DataSet();
+            try
+            {
+                using (SqlDataAdapter da = new SqlDataAdapter("META.Sp_Usuarios_Find", _ExSQLConnection))
+                {
+                    da.SelectCommand.CommandType = CommandType.StoredProcedure;
+                    da.SelectCommand.CommandTimeout = 5000;
+                    da.SelectCommand.Parameters.AddWithValue("@Usuario", Usuario).SqlDbType = SqlDbType.VarChar;
+                    da.Fill(ds, "Datos");
+                    dt = ds.Tables["Datos"];
+                }
+            }
+            catch (Exception e)
+            {
+                SaveExceptions(System.Reflection.MethodBase.GetCurrentMethod().Name, e.Message, Usuario, IdSistema);
+            }
+            return dt;
+        }
+
+        public DataTable AdminUsuariosRoles(int Tipo, int IdUsuario, int IdRol, string User, long IdSistema)
+        {
+            DataTable dt = new DataTable();
+            DataSet ds = new DataSet();
+            try
+            {
+                using (SqlDataAdapter da = new SqlDataAdapter("META.Sp_Usuarios_Roles_Admin", _ExSQLConnection))
+                {
+                    da.SelectCommand.CommandType = CommandType.StoredProcedure;
+                    da.SelectCommand.CommandTimeout = 5000;
+                    da.SelectCommand.Parameters.AddWithValue("@Tipo", Tipo).SqlDbType = SqlDbType.Int;
+                    da.SelectCommand.Parameters.AddWithValue("@IdUsuario", IdUsuario).SqlDbType = SqlDbType.Int;
+                    da.SelectCommand.Parameters.AddWithValue("@IdRol", IdRol).SqlDbType = SqlDbType.Int;
+                    da.SelectCommand.Parameters.AddWithValue("@User", User).SqlDbType = SqlDbType.VarChar;
+                    da.Fill(ds, "Datos");
+                    dt = ds.Tables["Datos"];
+                }
+            }
+            catch (Exception e)
+            {
+                SaveExceptions(System.Reflection.MethodBase.GetCurrentMethod().Name, e.Message, User, IdSistema);
+            }
+            return dt;
+        }
+
+        public DataTable GetUsuariosRoles(int Id, string User, long IdSistema)
+        {
+            DataTable dt = new DataTable();
+            DataSet ds = new DataSet();
+            try
+            {
+                using (SqlDataAdapter da = new SqlDataAdapter("META.Sp_Usuarios_Roles_Get", _ExSQLConnection))
+                {
+                    da.SelectCommand.CommandType = CommandType.StoredProcedure;
+                    da.SelectCommand.CommandTimeout = 5000;
+                    da.SelectCommand.Parameters.AddWithValue("@Id", Id).SqlDbType = SqlDbType.Int;
+                    da.Fill(ds, "Datos");
+                    dt = ds.Tables["Datos"];
+                }
+            }
+            catch (Exception e)
+            {
+                SaveExceptions(System.Reflection.MethodBase.GetCurrentMethod().Name, e.Message, User, IdSistema);
+            }
+            return dt;
+        }
+
+        public DataTable SelectUsuariosRoles(int Id, string User, long IdSistema)
+        {
+            DataTable dt = new DataTable();
+            DataSet ds = new DataSet();
+            try
+            {
+                using (SqlDataAdapter da = new SqlDataAdapter("META.Sp_Usuarios_Roles_Select", _ExSQLConnection))
+                {
+                    da.SelectCommand.CommandType = CommandType.StoredProcedure;
+                    da.SelectCommand.CommandTimeout = 5000;
+                    da.SelectCommand.Parameters.AddWithValue("@Id", Id).SqlDbType = SqlDbType.Int;
+                    da.Fill(ds, "Datos");
+                    dt = ds.Tables["Datos"];
+                }
+            }
+            catch (Exception e)
+            {
+                SaveExceptions(System.Reflection.MethodBase.GetCurrentMethod().Name, e.Message, User, IdSistema);
+            }
+            return dt;
+        }
+
+        public DataTable LikeUsuariosRoles(int Id, string Descripcion, string User, long IdSistema)
+        {
+            DataTable dt = new DataTable();
+            DataSet ds = new DataSet();
+            try
+            {
+                using (SqlDataAdapter da = new SqlDataAdapter("META.Sp_Usuarios_Roles_Like", _ExSQLConnection))
+                {
+                    da.SelectCommand.CommandType = CommandType.StoredProcedure;
+                    da.SelectCommand.CommandTimeout = 5000;
+                    da.SelectCommand.Parameters.AddWithValue("@Id", Id).SqlDbType = SqlDbType.Int;
+                    da.SelectCommand.Parameters.AddWithValue("@Descripcion", Descripcion).SqlDbType = SqlDbType.VarChar;
+                    da.Fill(ds, "Datos");
+                    dt = ds.Tables["Datos"];
+                }
+            }
+            catch (Exception e)
+            {
+                SaveExceptions(System.Reflection.MethodBase.GetCurrentMethod().Name, e.Message, User, IdSistema);
+            }
+            return dt;
+        }
+
+        #endregion
+
         #region Asignations
 
-        // 1-ASIGNAR O 2-REMOVER
+        // 1-ASIGNATION O 2-REMOVE
         public DataTable AdminUsuarioComercio(int Tipo, int IdUSuario, long IdSucursal, string User, long IdSistema)
         {
             DataTable dt = new DataTable();

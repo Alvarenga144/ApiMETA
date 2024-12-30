@@ -200,8 +200,10 @@
     <Compile Include="Controllers\CommercesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MonitorController.cs" />
+    <Compile Include="Controllers\RoleUsersControllers.cs" />
     <Compile Include="Controllers\StatisticsController.cs" />
     <Compile Include="Controllers\TransactionsController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -212,8 +214,10 @@
     <Compile Include="Models\CommercesModels.cs" />
     <Compile Include="Models\Connections\SqlProcess.cs" />
     <Compile Include="Models\MonitorModels.cs" />
+    <Compile Include="Models\RoleUsersModels.cs" />
     <Compile Include="Models\StatisticsModels.cs" />
     <Compile Include="Models\TransactionsModels.cs" />
+    <Compile Include="Models\UsersModels.cs" />
     <Compile Include="Models\ValidateTokenHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
