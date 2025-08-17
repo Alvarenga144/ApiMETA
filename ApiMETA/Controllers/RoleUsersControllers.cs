@@ -13,7 +13,7 @@ namespace ApiMETA.Controllers
         [Authorize]
         [Route("AsignRole")]
         [HttpPost]
-        public int AdminAsignarl(AdminUserRol adminUserRol)
+        public int AdminAsignar(AdminUserRol adminUserRol)
         {
             int respuesta = 0;
             Globals.Log(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " INFO " + System.Reflection.MethodBase.GetCurrentMethod().Name + ": Start: " + adminUserRol + "  \n");
