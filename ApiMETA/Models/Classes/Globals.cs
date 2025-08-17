@@ -27,11 +27,11 @@ namespace ApiMETA.Models.Classes
 
         #region Log
 
-        public static void Log(string text)
+        public static bool Log(string text)
         {
+            const int maxAttempts = 3;
             int count = 1;
-            bool intentar = true;
-            while (intentar)
+            while (count <= maxAttempts)
             {
                 try
                 {
@@ -42,13 +42,29 @@ namespace ApiMETA.Models.Classes
                     // flush every 20 seconds as you do it
                     File.AppendAllText(PathLog + FileName, sb.ToString());
                     sb.Clear();
-                    intentar = false;
+                    return true;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    if (count >= maxAttempts)
+                    {
+                        try
+                        {
+                            using (SqlProcess objsql = new SqlProcess())
+                            {
+                                objsql.SaveExceptions(nameof(Log), ex.Message, Usuario.ToString(), IdSistema);
+                            }
+                        }
+                        catch
+                        {
+                            // Intentionally ignore to avoid throwing from log method
+                        }
+                        return false;
+                    }
                     count++;
                 }
             }
+            return false;
         }
 
         #endregion
